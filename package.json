@@ -1,0 +1,19 @@
+{
+  "name": "deps",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "deps": "./src/index.ts"
+  },
+  "scripts": {
+    "dev": "bun run src/index.ts",
+    "test": "bun test",
+    "build": "bun build --compile --outfile=dist/deps src/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
