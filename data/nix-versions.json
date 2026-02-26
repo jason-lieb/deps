@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "lastUpdated": "2026-02-26",
+  "packages": {
+    "nodejs": {
+      "20.11.0": { "commit": "abc123def", "attr": "nodejs_20" },
+      "20.10.0": { "commit": "def456abc", "attr": "nodejs_20" },
+      "18.19.0": { "commit": "ghi789jkl", "attr": "nodejs_18" }
+    },
+    "python3": {
+      "3.11.0": { "commit": "mno012pqr", "attr": "python311" },
+      "3.10.0": { "commit": "stu345vwx", "attr": "python310" }
+    },
+    "ripgrep": {
+      "14.0.0": { "commit": "yz0123abc", "attr": "ripgrep" },
+      "13.0.0": { "commit": "bcd456efg", "attr": "ripgrep" }
+    },
+    "jq": {
+      "1.7.0": { "commit": "hij789klm", "attr": "jq" },
+      "1.6.0": { "commit": "nop012qrs", "attr": "jq" }
+    }
+  }
+}
