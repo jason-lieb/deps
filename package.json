@@ -1,6 +1,13 @@
 {
   "name": "deps",
   "version": "0.1.0",
+  "description": "Nix-powered dependency management without the Nix",
+  "author": "jason",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jason/deps"
+  },
   "type": "module",
   "bin": {
     "deps": "./src/index.ts"
