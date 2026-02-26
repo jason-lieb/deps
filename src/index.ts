@@ -10,6 +10,7 @@ import "./commands/remove";
 import "./commands/list";
 import "./commands/shell";
 import "./commands/env";
+import "./commands/direnv-setup";
 
 const exitCode = await runCli(process.argv.slice(2));
 process.exit(exitCode);
