@@ -1,2 +1,10 @@
 #!/usr/bin/env bun
-console.log("deps v0.1.0");
+
+import { runCli } from "./cli";
+
+// Register commands
+import "./commands/init";
+import "./commands/install";
+
+const exitCode = await runCli(process.argv.slice(2));
+process.exit(exitCode);
