@@ -1,13 +1,7 @@
 import { join } from "path";
 import { registerCommand } from "../cli";
 
-const TEMPLATE = `# deps - list your dependencies below
-# Format: name version
-# Examples:
-#   nodejs 20
-#   python 3.11
-#   ripgrep ^14
-`;
+const TEMPLATE = ``;
 
 registerCommand({
   name: "init",
