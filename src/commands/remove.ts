@@ -1,22 +1,30 @@
 import { join } from "path";
 import { registerCommand } from "../cli";
+import { getGlobalDepsPath } from "../paths";
+
+function parseArgs(args: string[]): { global: boolean; rest: string[] } {
+  const global = args[0] === "-g" || args[0] === "--global";
+  const rest = global ? args.slice(1) : args;
+  return { global, rest };
+}
 
 registerCommand({
   name: "remove",
   description: "Remove a dependency",
   run: async (args) => {
-    if (args.length < 1) {
-      console.error("Usage: deps remove <package>");
+    const { global, rest } = parseArgs(args);
+
+    if (rest.length < 1) {
+      console.error("Usage: deps remove [-g] <package>");
       return 1;
     }
 
-    const name = args[0];
-    const cwd = process.cwd();
-    const depsPath = join(cwd, "deps");
+    const name = rest[0];
+    const depsPath = global ? getGlobalDepsPath() : join(process.cwd(), "deps");
 
     const file = Bun.file(depsPath);
     if (!(await file.exists())) {
-      console.error("No deps file found.");
+      console.error(global ? "No global deps file found." : "No deps file found.");
       return 1;
     }
 
@@ -30,7 +38,7 @@ registerCommand({
     }
 
     await Bun.write(depsPath, filtered.join("\n"));
-    console.log(`Removed ${name}`);
+    console.log(`Removed ${name}${global ? " (global)" : ""}`);
     return 0;
   },
 });
