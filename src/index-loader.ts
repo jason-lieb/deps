@@ -1,5 +1,5 @@
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
+// Static import so Bun embeds the JSON in compiled executable
+import nixVersionsData from "../data/nix-versions.json";
 
 export interface VersionEntry {
   commit: string;
@@ -12,19 +12,9 @@ export interface NixVersionsIndex {
   packages: Record<string, Record<string, VersionEntry>>;
 }
 
-let cachedIndex: NixVersionsIndex | null = null;
+const cachedIndex: NixVersionsIndex = nixVersionsData as NixVersionsIndex;
 
 export async function loadIndex(): Promise<NixVersionsIndex> {
-  if (cachedIndex) return cachedIndex;
-
-  // Resolve path relative to this file
-  const currentFile = fileURLToPath(import.meta.url);
-  const currentDir = dirname(currentFile);
-  const indexPath = join(currentDir, "..", "data", "nix-versions.json");
-
-  const file = Bun.file(indexPath);
-  const content = await file.json();
-  cachedIndex = content as NixVersionsIndex;
   return cachedIndex;
 }
 
