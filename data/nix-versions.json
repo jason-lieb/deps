@@ -1,23 +1,61 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-26",
+  "lastUpdated": "2026-02-27",
   "packages": {
-    "nodejs": {
-      "20.11.0": { "commit": "abc123def", "attr": "nodejs_20" },
-      "20.10.0": { "commit": "def456abc", "attr": "nodejs_20" },
-      "18.19.0": { "commit": "ghi789jkl", "attr": "nodejs_18" }
+    "node": {
+      "18.19.0": { "commit": "7a339d87931bba829f68e94621536cad9132971a", "attr": "nodejs" },
+      "18.19.1": { "commit": "e89cf1c932006531f454de7d652163a9a5c86668", "attr": "nodejs" },
+      "18.20.4": { "commit": "7a5cc174569052f935d642b227ecf53584595147", "attr": "nodejs" },
+      "18.20.5": { "commit": "c792c60b8a97daa7efe41a6e4954497ae410e0c1", "attr": "nodejs" },
+      "20.10.0": { "commit": "c407032be28ca2236f45c49cfb2b8b3885294f7f", "attr": "nodejs" },
+      "20.11.0": { "commit": "7a339d87931bba829f68e94621536cad9132971a", "attr": "nodejs" },
+      "20.11.1": { "commit": "e89cf1c932006531f454de7d652163a9a5c86668", "attr": "nodejs" },
+      "20.12.2": { "commit": "67b4bf1df4ae54d6866d78ccbd1ac7e8a8db8b73", "attr": "nodejs" },
+      "20.18.0": { "commit": "882842d2a908700540d206baa79efb922ac1c33d", "attr": "nodejs" },
+      "20.18.1": { "commit": "21808d22b1cda1898b71cf1a1beb524a97add2c4", "attr": "nodejs" },
+      "22.9.0": { "commit": "7a5cc174569052f935d642b227ecf53584595147", "attr": "nodejs" },
+      "22.11.0": { "commit": "c792c60b8a97daa7efe41a6e4954497ae410e0c1", "attr": "nodejs" },
+      "22.12.0": { "commit": "21808d22b1cda1898b71cf1a1beb524a97add2c4", "attr": "nodejs" }
     },
     "python3": {
-      "3.11.0": { "commit": "mno012pqr", "attr": "python311" },
-      "3.10.0": { "commit": "stu345vwx", "attr": "python310" }
+      "3.10.0": { "commit": "3479555209833f42c16f9da373b6f64af1b06c4a", "attr": "python3" },
+      "3.10.6": { "commit": "f597e7e9fcf37d8ed14a12835ede0a7d362314bd", "attr": "python3" },
+      "3.10.12": { "commit": "9957cd48326fe8dbd52fdc50dd2502307f188b0d", "attr": "python3" },
+      "3.11.0": { "commit": "b3a285628a6928f62cdf4d09f4e656f7ecbbcafb", "attr": "python3" },
+      "3.11.1": { "commit": "55070e598e0e03d1d116c49b9eff322ef07c6ac6", "attr": "python3" },
+      "3.11.6": { "commit": "c407032be28ca2236f45c49cfb2b8b3885294f7f", "attr": "python3" },
+      "3.11.8": { "commit": "e89cf1c932006531f454de7d652163a9a5c86668", "attr": "python3" },
+      "3.12.0": { "commit": "459104f841356362bfb9ce1c788c1d42846b2454", "attr": "python3" },
+      "3.12.1": { "commit": "7a339d87931bba829f68e94621536cad9132971a", "attr": "python3" },
+      "3.12.3": { "commit": "0c19708cf035f50d28eb4b2b8e7a79d4dc52f6bb", "attr": "python3" },
+      "3.13.0": { "commit": "882842d2a908700540d206baa79efb922ac1c33d", "attr": "python3" },
+      "3.13.1": { "commit": "21808d22b1cda1898b71cf1a1beb524a97add2c4", "attr": "python3" },
+      "3.13.2": { "commit": "3e2cf88148e732abc1d259286123e06a9d8c964a", "attr": "python3" }
     },
-    "ripgrep": {
-      "14.0.0": { "commit": "yz0123abc", "attr": "ripgrep" },
-      "13.0.0": { "commit": "bcd456efg", "attr": "ripgrep" }
+    "pnpm": {
+      "8.15.8": { "commit": "05bbf675397d5366259409139039af8077d695ce", "attr": "pnpm" },
+      "8.15.9": { "commit": "e6f23dc08d3624daab7094b701aa3954923c6bbb", "attr": "pnpm" },
+      "9.3.0": { "commit": "67b4bf1df4ae54d6866d78ccbd1ac7e8a8db8b73", "attr": "pnpm" },
+      "9.4.0": { "commit": "05bbf675397d5366259409139039af8077d695ce", "attr": "pnpm" },
+      "9.6.0": { "commit": "efcb904a6c674d1d3717b06b89b54d65104d4ea7", "attr": "pnpm" },
+      "9.7.0": { "commit": "f0eaec3bf29b96bf6f801cc602ed6827a9fa53ec", "attr": "pnpm" },
+      "9.10.0": { "commit": "ab7b6889ae9d484eed2876868209e33eb262511d", "attr": "pnpm" },
+      "9.12.2": { "commit": "7a5cc174569052f935d642b227ecf53584595147", "attr": "pnpm" },
+      "9.14.2": { "commit": "882842d2a908700540d206baa79efb922ac1c33d", "attr": "pnpm" },
+      "9.15.1": { "commit": "c792c60b8a97daa7efe41a6e4954497ae410e0c1", "attr": "pnpm" },
+      "9.15.3": { "commit": "21808d22b1cda1898b71cf1a1beb524a97add2c4", "attr": "pnpm" },
+      "9.15.5": { "commit": "0bd7f95e4588643f2c2d403b38d8a2fe44b0fc73", "attr": "pnpm" },
+      "9.15.9": { "commit": "e6f23dc08d3624daab7094b701aa3954923c6bbb", "attr": "pnpm" },
+      "10.0.0": { "commit": "21808d22b1cda1898b71cf1a1beb524a97add2c4", "attr": "pnpm" },
+      "10.4.1": { "commit": "0bd7f95e4588643f2c2d403b38d8a2fe44b0fc73", "attr": "pnpm" },
+      "10.6.5": { "commit": "c5dd43934613ae0f8ff37c59f61c507c2e8f980d", "attr": "pnpm" },
+      "10.9.0": { "commit": "3e2cf88148e732abc1d259286123e06a9d8c964a", "attr": "pnpm" },
+      "10.11.0": { "commit": "4684fd6b0c01e4b7d99027a34c93c2e09ecafee2", "attr": "pnpm" },
+      "10.12.1": { "commit": "e6f23dc08d3624daab7094b701aa3954923c6bbb", "attr": "pnpm" }
     },
-    "jq": {
-      "1.7.0": { "commit": "hij789klm", "attr": "jq" },
-      "1.6.0": { "commit": "nop012qrs", "attr": "jq" }
+    "eas": {
+      "14.7.1": { "commit": "3e2cf88148e732abc1d259286123e06a9d8c964a", "attr": "eas-cli" },
+      "16.4.0": { "commit": "e6f23dc08d3624daab7094b701aa3954923c6bbb", "attr": "eas-cli" }
     }
   }
 }
