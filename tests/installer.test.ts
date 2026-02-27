@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { getProfilePath, buildNixInstallCommand } from "../src/installer";
+import { getProfilePath, buildNixInstallCommand, ensureInstalled } from "../src/installer";
 
 describe("getProfilePath", () => {
   test("returns consistent path for same directory", () => {
@@ -30,5 +30,12 @@ describe("buildNixInstallCommand", () => {
     expect(cmd).toContain("nix profile install");
     expect(cmd).toContain("--profile");
     expect(cmd).toContain("github:NixOS/nixpkgs/def456#nodejs_20");
+  });
+});
+
+describe("ensureInstalled", () => {
+  test("returns null when no deps file exists", async () => {
+    const result = await ensureInstalled("/nonexistent/path");
+    expect(result).toBeNull();
   });
 });

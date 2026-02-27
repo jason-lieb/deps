@@ -1,42 +1,50 @@
 import { registerCommand } from "../cli";
-import { readLockfile, isLockfileStale } from "../lockfile";
-import { generateEnvExports } from "../env";
-import { join } from "path";
+import { readLockfile } from "../lockfile";
+import { getBinPaths, mergeBinPaths } from "../env";
+import { ensureInstalled } from "../installer";
+import { getGlobalDepsDir } from "../paths";
+
+function parseArgs(args: string[]): { globalOnly: boolean } {
+  const globalOnly = args.includes("--global");
+  return { globalOnly };
+}
 
 registerCommand({
   name: "env",
   description: "Output shell exports (for direnv)",
-  run: async (_args) => {
+  run: async (args) => {
+    const { globalOnly } = parseArgs(args);
     const cwd = process.cwd();
-    const depsPath = join(cwd, "deps");
+    const globalDir = getGlobalDepsDir();
 
-    const file = Bun.file(depsPath);
-    if (!(await file.exists())) {
-      // No deps file, nothing to export
-      return 0;
-    }
+    // Always try to install global deps if needed
+    await ensureInstalled(globalDir);
 
-    const content = await file.text();
-    const stale = await isLockfileStale(cwd, content);
+    if (globalOnly) {
+      const lockfile = await readLockfile(globalDir);
+      if (!lockfile) return 0;
 
-    if (stale) {
-      // Auto-install if lockfile is stale
-      const { getCommand } = await import("../cli");
-      const installCmd = getCommand("install");
-      if (installCmd) {
-        const code = await installCmd.run([]);
-        if (code !== 0) return code;
+      const paths = getBinPaths(lockfile);
+      if (paths.length > 0) {
+        console.log(`export PATH="${paths.join(":")}:$PATH"`);
       }
-    }
-
-    const lockfile = await readLockfile(cwd);
-    if (!lockfile) {
       return 0;
     }
 
-    const exports = generateEnvExports(lockfile);
-    if (exports) {
-      console.log(exports);
+    // Install local deps if needed
+    await ensureInstalled(cwd);
+
+    // Merge global and local
+    const globalLockfile = await readLockfile(globalDir);
+    const localLockfile = await readLockfile(cwd);
+
+    const globalPaths = globalLockfile ? getBinPaths(globalLockfile) : [];
+    const localPaths = localLockfile ? getBinPaths(localLockfile) : [];
+
+    const mergedPaths = mergeBinPaths(globalPaths, localPaths);
+
+    if (mergedPaths.length > 0) {
+      console.log(`export PATH="${mergedPaths.join(":")}:$PATH"`);
     }
     return 0;
   },

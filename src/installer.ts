@@ -1,6 +1,9 @@
 import { join } from "path";
 import { homedir } from "os";
-import type { ResolvedDependency } from "./types";
+import type { ResolvedDependency, Lockfile } from "./types";
+import { parseDepsFile } from "./parser";
+import { resolveDependencies } from "./resolver";
+import { writeLockfile, readLockfile, isLockfileStale } from "./lockfile";
 
 function hashString(str: string): string {
   let hash = 0;
@@ -94,4 +97,41 @@ export async function installAll(
   }
 
   return results;
+}
+
+export async function ensureInstalled(dir: string): Promise<Lockfile | null> {
+  const depsPath = join(dir, "deps");
+  const file = Bun.file(depsPath);
+
+  if (!(await file.exists())) {
+    return null;
+  }
+
+  const content = await file.text();
+  const deps = parseDepsFile(content);
+
+  if (deps.length === 0) {
+    return null;
+  }
+
+  const stale = await isLockfileStale(dir, content);
+  if (!stale) {
+    return await readLockfile(dir);
+  }
+
+  console.log(`Resolving ${deps.length} dependencies...`);
+  const resolved = await resolveDependencies(deps);
+
+  console.log(`Installing dependencies...`);
+  const installed = await installAll(dir, resolved);
+
+  const resolvedMap: Record<string, ResolvedDependency> = {};
+  for (const dep of installed) {
+    resolvedMap[`${dep.name} ${dep.requestedVersion}`] = dep;
+  }
+
+  await writeLockfile(dir, content, resolvedMap);
+  console.log("Dependencies installed successfully.");
+
+  return await readLockfile(dir);
 }

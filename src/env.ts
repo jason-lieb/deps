@@ -13,6 +13,11 @@ export function getBinPaths(lockfile: Lockfile): string[] {
   return paths;
 }
 
+export function mergeBinPaths(globalPaths: string[], localPaths: string[]): string[] {
+  // Local paths first (higher precedence)
+  return [...localPaths, ...globalPaths];
+}
+
 export function generateEnvExports(lockfile: Lockfile): string {
   const binPaths = getBinPaths(lockfile);
 
