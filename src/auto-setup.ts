@@ -45,22 +45,19 @@ async function autoSetupDirenv(): Promise<void> {
     return;
   }
 
-  const direnvrcPath = join(homedir(), ".direnvrc");
-  const file = Bun.file(direnvrcPath);
+  const home = homedir();
+  const libDir = join(home, ".config/direnv/lib");
+  const libPath = join(libDir, "use_deps.sh");
+  const file = Bun.file(libPath);
 
-  let content = "";
   if (await file.exists()) {
-    content = await file.text();
-  }
-
-  if (content.includes("use_deps")) {
     return;
   }
 
-  content = content.trimEnd() + "\n" + DIRENV_FUNCTION;
-  await Bun.write(direnvrcPath, content);
+  await $`mkdir -p ${libDir}`.quiet().nothrow();
+  await Bun.write(libPath, DIRENV_FUNCTION.trim() + "\n");
 
-  console.error("deps: Added use_deps function to ~/.direnvrc");
+  console.error("deps: Created ~/.config/direnv/lib/use_deps.sh");
 }
 
 export async function autoSetup(): Promise<void> {
