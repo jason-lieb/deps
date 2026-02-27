@@ -11,11 +11,38 @@ use_deps() {
 }
 `;
 
-export async function autoSetupDirenv(): Promise<void> {
+async function autoSetupPath(): Promise<void> {
+  const home = homedir();
+  const localBin = join(home, ".local/bin");
+  const symlinkPath = join(localBin, "deps");
+  const depsSource = join(home, ".nix-profile/bin/deps");
+
+  // Check if symlink already exists
+  const symlinkFile = Bun.file(symlinkPath);
+  if (await symlinkFile.exists()) {
+    return;
+  }
+
+  // Check if source exists
+  const sourceFile = Bun.file(depsSource);
+  if (!(await sourceFile.exists())) {
+    return;
+  }
+
+  // Create ~/.local/bin if needed
+  await $`mkdir -p ${localBin}`.quiet().nothrow();
+
+  // Create symlink
+  await $`ln -sf ${depsSource} ${symlinkPath}`.quiet().nothrow();
+
+  console.error("deps: Created symlink at ~/.local/bin/deps");
+}
+
+async function autoSetupDirenv(): Promise<void> {
   // Check if direnv is installed
   const result = await $`which direnv`.quiet().nothrow();
   if (result.exitCode !== 0) {
-    return; // direnv not installed, skip
+    return;
   }
 
   const direnvrcPath = join(homedir(), ".direnvrc");
@@ -27,11 +54,16 @@ export async function autoSetupDirenv(): Promise<void> {
   }
 
   if (content.includes("use_deps")) {
-    return; // Already configured
+    return;
   }
 
   content = content.trimEnd() + "\n" + DIRENV_FUNCTION;
   await Bun.write(direnvrcPath, content);
 
   console.error("deps: Added use_deps function to ~/.direnvrc");
+}
+
+export async function autoSetup(): Promise<void> {
+  await autoSetupPath();
+  await autoSetupDirenv();
 }
