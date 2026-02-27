@@ -8,9 +8,11 @@
 
 **Tech Stack:** TypeScript, Bun, Nix
 
+**Status:** In progress. Working in worktree at `.worktrees/api-simplification` on branch `feature/api-simplification`.
+
 ---
 
-## Task 1: Remove shell command
+## Task 1: Remove shell command [DONE]
 
 **Files:**
 - Delete: `src/commands/shell.ts`
@@ -45,7 +47,7 @@ Replaced by direnv integration via deps env."
 
 ---
 
-## Task 2: Create ensureInstalled helper
+## Task 2: Create ensureInstalled helper [DONE]
 
 **Files:**
 - Modify: `src/installer.ts` (add function)
@@ -133,7 +135,7 @@ git commit -m "feat: add ensureInstalled helper for auto-install"
 
 ---
 
-## Task 3: Remove install command and update add/env
+## Task 3: Remove install command and update add/env [DONE]
 
 **Files:**
 - Delete: `src/commands/install.ts`
@@ -247,7 +249,7 @@ deps add and deps env now auto-install when deps file changes."
 
 ---
 
-## Task 4: Remove binary installation scripts
+## Task 4: Remove binary installation scripts [DONE]
 
 **Files:**
 - Delete: `scripts/install.sh`
@@ -318,7 +320,7 @@ deps now only installable via nix."
 
 ---
 
-## Task 5: Add paths.ts helper module
+## Task 5: Add paths.ts helper module [DONE]
 
 **Files:**
 - Create: `src/paths.ts`
@@ -394,7 +396,7 @@ git commit -m "feat: add paths.ts helper for global deps location"
 
 ---
 
-## Task 6: Add -g flag to add command
+## Task 6: Add -g flag to add command [DONE]
 
 **Files:**
 - Modify: `src/commands/add.ts`
@@ -478,7 +480,7 @@ git commit -m "feat: add -g flag to deps add for global deps"
 
 ---
 
-## Task 7: Add -g flag to remove command
+## Task 7: Add -g flag to remove command [DONE]
 
 **Files:**
 - Modify: `src/commands/remove.ts`
@@ -548,7 +550,7 @@ git commit -m "feat: add -g flag to deps remove for global deps"
 
 ---
 
-## Task 8: Add -g and --all flags to list command
+## Task 8: Add -g and --all flags to list command [DONE]
 
 **Files:**
 - Modify: `src/commands/list.ts`
