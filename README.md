@@ -4,16 +4,8 @@ Nix-powered dependency management without the Nix.
 
 ## Installation
 
-### Via Nix (recommended)
-
 ```bash
 nix profile install github:jason/deps
-```
-
-### Via curl
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/jason/deps/main/scripts/install.sh | sh
 ```
 
 ## Usage
@@ -41,12 +33,6 @@ deps add nodejs 20
 deps add python 3.11
 ```
 
-### Install dependencies
-
-```bash
-deps install
-```
-
 ### direnv integration
 
 One-time setup:
@@ -72,11 +58,9 @@ direnv allow
 | Command | Description |
 |---------|-------------|
 | `deps init` | Create a new deps file |
-| `deps install` | Install dependencies |
 | `deps add <pkg> <version>` | Add a dependency |
 | `deps remove <pkg>` | Remove a dependency |
 | `deps list` | List installed dependencies |
-| `deps shell` | Spawn shell with deps in PATH |
 | `deps env` | Output shell exports |
 | `deps direnv-setup` | Configure direnv integration |
 
