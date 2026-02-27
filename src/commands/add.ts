@@ -2,6 +2,7 @@ import { join } from "path";
 import { registerCommand } from "../cli";
 import { ensureInstalled } from "../installer";
 import { getGlobalDepsPath, ensureGlobalDepsDir, getGlobalDepsDir } from "../paths";
+import { resolveDependency } from "../resolver";
 
 function parseArgs(args: string[]): { global: boolean; rest: string[] } {
   const global = args[0] === "-g" || args[0] === "--global";
@@ -21,6 +22,15 @@ registerCommand({
     }
 
     const [name, version] = rest;
+
+    // Validate package and version exist in index before adding
+    try {
+      await resolveDependency({ name, version });
+    } catch (err) {
+      console.error((err as Error).message);
+      return 1;
+    }
+
     let depsPath: string;
     let installDir: string;
 
