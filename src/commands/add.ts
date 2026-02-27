@@ -1,5 +1,6 @@
 import { join } from "path";
 import { registerCommand } from "../cli";
+import { ensureInstalled } from "../installer";
 
 registerCommand({
   name: "add",
@@ -21,7 +22,6 @@ registerCommand({
       content = await file.text();
     }
 
-    // Check if already exists
     const lines = content.split("\n");
     const existing = lines.findIndex((l) => l.trim().startsWith(name + " "));
     if (existing !== -1) {
@@ -34,12 +34,7 @@ registerCommand({
     await Bun.write(depsPath, content);
     console.log(`Added ${name} ${version}`);
 
-    // Run install
-    const { getCommand } = await import("../cli");
-    const installCmd = getCommand("install");
-    if (installCmd) {
-      return installCmd.run([]);
-    }
+    await ensureInstalled(cwd);
     return 0;
   },
 });
