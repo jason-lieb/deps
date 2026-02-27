@@ -8,7 +8,6 @@ import "./commands/install";
 import "./commands/add";
 import "./commands/remove";
 import "./commands/list";
-import "./commands/shell";
 import "./commands/env";
 import "./commands/direnv-setup";
 
