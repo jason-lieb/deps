@@ -1,19 +1,37 @@
 import { join } from "path";
 import { registerCommand } from "../cli";
 import { ensureInstalled } from "../installer";
+import { getGlobalDepsPath, ensureGlobalDepsDir, getGlobalDepsDir } from "../paths";
+
+function parseArgs(args: string[]): { global: boolean; rest: string[] } {
+  const global = args[0] === "-g" || args[0] === "--global";
+  const rest = global ? args.slice(1) : args;
+  return { global, rest };
+}
 
 registerCommand({
   name: "add",
   description: "Add a dependency",
   run: async (args) => {
-    if (args.length < 2) {
-      console.error("Usage: deps add <package> <version>");
+    const { global, rest } = parseArgs(args);
+
+    if (rest.length < 2) {
+      console.error("Usage: deps add [-g] <package> <version>");
       return 1;
     }
 
-    const [name, version] = args;
-    const cwd = process.cwd();
-    const depsPath = join(cwd, "deps");
+    const [name, version] = rest;
+    let depsPath: string;
+    let installDir: string;
+
+    if (global) {
+      await ensureGlobalDepsDir();
+      depsPath = getGlobalDepsPath();
+      installDir = getGlobalDepsDir();
+    } else {
+      depsPath = join(process.cwd(), "deps");
+      installDir = process.cwd();
+    }
 
     const file = Bun.file(depsPath);
     let content = "";
@@ -32,9 +50,9 @@ registerCommand({
     }
 
     await Bun.write(depsPath, content);
-    console.log(`Added ${name} ${version}`);
+    console.log(`Added ${name} ${version}${global ? " (global)" : ""}`);
 
-    await ensureInstalled(cwd);
+    await ensureInstalled(installDir);
     return 0;
   },
 });
