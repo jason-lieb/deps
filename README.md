@@ -8,6 +8,34 @@ Nix-powered dependency management without the Nix.
 nix profile install github:jason/deps
 ```
 
+### Shell Configuration
+
+After installing Nix, add it to your shell configuration:
+
+**Bash** (`~/.bashrc`):
+```bash
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+  . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+fi
+export PATH="$HOME/.nix-profile/bin:$PATH"
+```
+
+**Zsh** (`~/.zshrc`):
+```bash
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+  . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+fi
+export PATH="$HOME/.nix-profile/bin:$PATH"
+```
+
+**Fish** (`~/.config/fish/config.fish`):
+```fish
+if test -e "$HOME/.nix-profile/etc/profile.d/nix.fish"
+  source "$HOME/.nix-profile/etc/profile.d/nix.fish"
+end
+set -gx PATH "$HOME/.nix-profile/bin" $PATH
+```
+
 ## Usage
 
 ### Initialize a project
