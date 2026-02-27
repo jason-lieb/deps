@@ -58,11 +58,34 @@ direnv allow
 | Command | Description |
 |---------|-------------|
 | `deps init` | Create a new deps file |
-| `deps add <pkg> <version>` | Add a dependency |
-| `deps remove <pkg>` | Remove a dependency |
-| `deps list` | List installed dependencies |
-| `deps env` | Output shell exports |
+| `deps add [-g] <pkg> <version>` | Add a dependency (-g for global) |
+| `deps remove [-g] <pkg>` | Remove a dependency |
+| `deps list [-g \| --all]` | List dependencies |
+| `deps env [--global]` | Output shell exports |
 | `deps direnv-setup` | Configure direnv integration |
+
+## Global Dependencies
+
+Global dependencies are available in all shell sessions. They're stored in `~/.config/deps/`.
+
+### Add global dependencies
+
+```bash
+deps add -g ripgrep 14
+deps add -g jq 1.7
+```
+
+### List global and local deps
+
+```bash
+deps list -g        # Global only
+deps list --all     # Both
+```
+
+### How it works
+
+- `deps env` merges global and local deps (local takes precedence)
+- `deps env --global` outputs only global deps
 
 ## Version Specification
 
